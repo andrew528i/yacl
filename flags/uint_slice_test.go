@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFromFlags_UintSlice(t *testing.T) {
+func TestParse_UintSlice(t *testing.T) {
 	type ChildPorts struct {
 		PostgresPorts []uint
 	}
@@ -75,7 +75,7 @@ func TestFromFlags_UintSlice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			ports := FromFlags[Ports](DefaultFlagParams())
+			ports := Parse[Ports](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *ports)
 		})

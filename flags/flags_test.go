@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestFromFlags_UnsupportedTypes(t *testing.T) {
+func TestParse_UnsupportedTypes(t *testing.T) {
 	type FirstStruct struct {
 		Value float32
 	}
@@ -20,13 +20,13 @@ func TestFromFlags_UnsupportedTypes(t *testing.T) {
 		{
 			name: "float32",
 			exec: func() {
-				_ = FromFlags[FirstStruct](DefaultFlagParams())
+				_ = Parse[FirstStruct](DefaultFlagParams())
 			},
 		},
 		{
 			name: "float32-slice",
 			exec: func() {
-				_ = FromFlags[SecondStruct](DefaultFlagParams())
+				_ = Parse[SecondStruct](DefaultFlagParams())
 			},
 		},
 	}
@@ -35,7 +35,7 @@ func TestFromFlags_UnsupportedTypes(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			defer func() {
 				if r := recover(); r == nil {
-					t.Error("FromFlags did not panic as expected")
+					t.Error("Parse did not panic as expected")
 				}
 			}()
 

@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFromFlags_BoolSlice(t *testing.T) {
+func TestParse_BoolSlice(t *testing.T) {
 	type MyStructChild struct {
 		Marks []bool
 	}
@@ -69,7 +69,7 @@ func TestFromFlags_BoolSlice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			myStruct := FromFlags[MyStruct](DefaultFlagParams())
+			myStruct := Parse[MyStruct](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *myStruct)
 		})

@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFromFlags_Float64Slice(t *testing.T) {
+func TestParse_Float64Slice(t *testing.T) {
 	type ChildTemperature struct {
 		Values []float64
 	}
@@ -68,7 +68,7 @@ func TestFromFlags_Float64Slice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			temperature := FromFlags[Temperature](DefaultFlagParams())
+			temperature := Parse[Temperature](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *temperature)
 		})

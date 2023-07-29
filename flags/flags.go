@@ -28,7 +28,7 @@ func DefaultFlagParams() *FlagParams {
 	}
 }
 
-func FromFlags[T any](params *FlagParams) *T {
+func Parse[T any](params *FlagParams) *T {
 	var cfg T
 
 	flag.CommandLine = flag.NewFlagSet("", flag.ExitOnError)

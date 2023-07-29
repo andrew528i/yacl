@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFromFlags_String(t *testing.T) {
+func TestParse_String(t *testing.T) {
 	type Address struct {
 		Street string `yacl:"street-alias"`
 	}
@@ -66,7 +66,7 @@ func TestFromFlags_String(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			person := FromFlags[Person](DefaultFlagParams())
+			person := Parse[Person](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *person)
 		})
@@ -75,7 +75,7 @@ func TestFromFlags_String(t *testing.T) {
 	os.Args = originalArgs
 }
 
-func TestFromFlags_Bool(t *testing.T) {
+func TestParse_Bool(t *testing.T) {
 	type Child struct {
 		B bool
 	}
@@ -127,7 +127,7 @@ func TestFromFlags_Bool(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			parent := FromFlags[Parent](DefaultFlagParams())
+			parent := Parse[Parent](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *parent)
 		})
@@ -136,7 +136,7 @@ func TestFromFlags_Bool(t *testing.T) {
 	os.Args = originalArgs
 }
 
-func TestFromFlags_Uint(t *testing.T) {
+func TestParse_Uint(t *testing.T) {
 	type PreviousGrade struct {
 		Score uint64
 	}
@@ -223,7 +223,7 @@ func TestFromFlags_Uint(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			person := FromFlags[Person](DefaultFlagParams())
+			person := Parse[Person](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *person)
 		})
@@ -232,7 +232,7 @@ func TestFromFlags_Uint(t *testing.T) {
 	os.Args = originalArgs
 }
 
-func TestFromFlags_Int(t *testing.T) {
+func TestParse_Int(t *testing.T) {
 	type PreviousGrade struct {
 		Score int64
 	}
@@ -319,7 +319,7 @@ func TestFromFlags_Int(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			person := FromFlags[Person](DefaultFlagParams())
+			person := Parse[Person](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *person)
 		})
@@ -328,7 +328,7 @@ func TestFromFlags_Int(t *testing.T) {
 	os.Args = originalArgs
 }
 
-func TestFromFlags_Float64(t *testing.T) {
+func TestParse_Float64(t *testing.T) {
 	type YesterdayTemperature struct {
 		Value float64
 	}
@@ -384,7 +384,7 @@ func TestFromFlags_Float64(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			temperature := FromFlags[Temperature](DefaultFlagParams())
+			temperature := Parse[Temperature](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *temperature)
 		})

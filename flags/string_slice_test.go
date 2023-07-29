@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFromFlags_StringSlice(t *testing.T) {
+func TestParse_StringSlice(t *testing.T) {
 	type ChildBlogPost struct {
 		Tags []string
 	}
@@ -76,7 +76,7 @@ func TestFromFlags_StringSlice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			blogPost := FromFlags[BlogPost](DefaultFlagParams())
+			blogPost := Parse[BlogPost](DefaultFlagParams())
 
 			assert.Equal(t, tc.expected, *blogPost)
 		})
