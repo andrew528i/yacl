@@ -28,10 +28,10 @@ func TestParseString(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_HTTP_BIND_ADDRESS": "localhost:8080",
-				"APP_DATABASE_HOSTNAME": "127.0.0.1",
-				"APP_DATABASE_USERNAME": "test-username",
-				"APP_DATABASE_PASSWORD": "test-password",
+				"HTTP_BIND_ADDRESS": "localhost:8080",
+				"DATABASE_HOSTNAME": "127.0.0.1",
+				"DATABASE_USERNAME": "test-username",
+				"DATABASE_PASSWORD": "test-password",
 			},
 			expected: Config{
 				HTTPBindAddress: "localhost:8080",
@@ -44,9 +44,9 @@ func TestParseString(t *testing.T) {
 		}, {
 			name: "no-http-bind-address",
 			vars: map[string]string{
-				"APP_DATABASE_HOSTNAME": "127.0.0.1",
-				"APP_DATABASE_USERNAME": "test-username",
-				"APP_DATABASE_PASSWORD": "test-password",
+				"DATABASE_HOSTNAME": "127.0.0.1",
+				"DATABASE_USERNAME": "test-username",
+				"DATABASE_PASSWORD": "test-password",
 			},
 			expected: Config{
 				Database: DatabaseConfig{
@@ -58,9 +58,9 @@ func TestParseString(t *testing.T) {
 		}, {
 			name: "no-database-hostname",
 			vars: map[string]string{
-				"APP_HTTP_BIND_ADDRESS": "localhost:8080",
-				"APP_DATABASE_USERNAME": "test-username",
-				"APP_DATABASE_PASSWORD": "test-password",
+				"HTTP_BIND_ADDRESS": "localhost:8080",
+				"DATABASE_USERNAME": "test-username",
+				"DATABASE_PASSWORD": "test-password",
 			},
 			expected: Config{
 				HTTPBindAddress: "localhost:8080",
@@ -110,9 +110,9 @@ func TestParse_Bool(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_SHOULD_PANIC":        "true",
-				"APP_CAN_STOP":            "true",
-				"APP_TERMINAL_BELL_SOUND": "true",
+				"SHOULD_PANIC":        "true",
+				"CAN_STOP":            "true",
+				"TERMINAL_BELL_SOUND": "true",
 			},
 			expected: Config{
 				ShouldPanic: true,
@@ -124,8 +124,8 @@ func TestParse_Bool(t *testing.T) {
 		}, {
 			name: "no-can-stop",
 			vars: map[string]string{
-				"APP_SHOULD_PANIC":        "true",
-				"APP_TERMINAL_BELL_SOUND": "true",
+				"SHOULD_PANIC":        "true",
+				"TERMINAL_BELL_SOUND": "true",
 			},
 			expected: Config{
 				ShouldPanic: true,
@@ -136,8 +136,8 @@ func TestParse_Bool(t *testing.T) {
 		}, {
 			name: "no-bell-sound",
 			vars: map[string]string{
-				"APP_SHOULD_PANIC": "true",
-				"APP_CAN_STOP":     "true",
+				"SHOULD_PANIC": "true",
+				"CAN_STOP":     "true",
 			},
 			expected: Config{
 				ShouldPanic: true,
@@ -186,11 +186,11 @@ func TestParse_Uint(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_HTTP_PORT":          "8081",
-				"APP_POSTGRES_PORT":      "5432",
-				"APP_POSTGRES_TIMEOUT":   "10000",
-				"APP_CLICKHOUSE_PORT":    "8123",
-				"APP_CLICKHOUSE_TIMEOUT": "15000",
+				"HTTP_PORT":          "8081",
+				"POSTGRES_PORT":      "5432",
+				"POSTGRES_TIMEOUT":   "10000",
+				"CLICKHOUSE_PORT":    "8123",
+				"CLICKHOUSE_TIMEOUT": "15000",
 			},
 			expected: Config{
 				HTTPPort: 8081,
@@ -206,10 +206,10 @@ func TestParse_Uint(t *testing.T) {
 		}, {
 			name: "no-http-port",
 			vars: map[string]string{
-				"APP_POSTGRES_PORT":      "5432",
-				"APP_POSTGRES_TIMEOUT":   "10000",
-				"APP_CLICKHOUSE_PORT":    "8123",
-				"APP_CLICKHOUSE_TIMEOUT": "15000",
+				"POSTGRES_PORT":      "5432",
+				"POSTGRES_TIMEOUT":   "10000",
+				"CLICKHOUSE_PORT":    "8123",
+				"CLICKHOUSE_TIMEOUT": "15000",
 			},
 			expected: Config{
 				Postgres: DatabaseConfig{
@@ -224,10 +224,10 @@ func TestParse_Uint(t *testing.T) {
 		}, {
 			name: "no-postgres-port",
 			vars: map[string]string{
-				"APP_HTTP_PORT":          "8081",
-				"APP_POSTGRES_TIMEOUT":   "10000",
-				"APP_CLICKHOUSE_PORT":    "8123",
-				"APP_CLICKHOUSE_TIMEOUT": "15000",
+				"HTTP_PORT":          "8081",
+				"POSTGRES_TIMEOUT":   "10000",
+				"CLICKHOUSE_PORT":    "8123",
+				"CLICKHOUSE_TIMEOUT": "15000",
 			},
 			expected: Config{
 				HTTPPort: 8081,
@@ -281,11 +281,11 @@ func TestParse_Int(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_HTTP_PORT":          "-8081",
-				"APP_POSTGRES_PORT":      "-5432",
-				"APP_POSTGRES_TIMEOUT":   "-10000",
-				"APP_CLICKHOUSE_PORT":    "-8123",
-				"APP_CLICKHOUSE_TIMEOUT": "-15000",
+				"HTTP_PORT":          "-8081",
+				"POSTGRES_PORT":      "-5432",
+				"POSTGRES_TIMEOUT":   "-10000",
+				"CLICKHOUSE_PORT":    "-8123",
+				"CLICKHOUSE_TIMEOUT": "-15000",
 			},
 			expected: Config{
 				HTTPPort: -8081,
@@ -301,10 +301,10 @@ func TestParse_Int(t *testing.T) {
 		}, {
 			name: "no-http-port",
 			vars: map[string]string{
-				"APP_POSTGRES_PORT":      "-5432",
-				"APP_POSTGRES_TIMEOUT":   "-10000",
-				"APP_CLICKHOUSE_PORT":    "-8123",
-				"APP_CLICKHOUSE_TIMEOUT": "-15000",
+				"POSTGRES_PORT":      "-5432",
+				"POSTGRES_TIMEOUT":   "-10000",
+				"CLICKHOUSE_PORT":    "-8123",
+				"CLICKHOUSE_TIMEOUT": "-15000",
 			},
 			expected: Config{
 				Postgres: DatabaseConfig{
@@ -319,10 +319,10 @@ func TestParse_Int(t *testing.T) {
 		}, {
 			name: "no-postgres-port",
 			vars: map[string]string{
-				"APP_HTTP_PORT":          "-8081",
-				"APP_POSTGRES_TIMEOUT":   "-10000",
-				"APP_CLICKHOUSE_PORT":    "-8123",
-				"APP_CLICKHOUSE_TIMEOUT": "-15000",
+				"HTTP_PORT":          "-8081",
+				"POSTGRES_TIMEOUT":   "-10000",
+				"CLICKHOUSE_PORT":    "-8123",
+				"CLICKHOUSE_TIMEOUT": "-15000",
 			},
 			expected: Config{
 				HTTPPort: -8081,
@@ -374,8 +374,8 @@ func TestParse_Float64(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_VALUE":           "21.7777",
-				"APP_YESTERDAY_VALUE": "93.1123333",
+				"VALUE":           "21.7777",
+				"YESTERDAY_VALUE": "93.1123333",
 			},
 			expected: Temperature{
 				Value: 21.7777,
@@ -386,7 +386,7 @@ func TestParse_Float64(t *testing.T) {
 		}, {
 			name: "no-value",
 			vars: map[string]string{
-				"APP_YESTERDAY_VALUE": "93.1123333",
+				"YESTERDAY_VALUE": "93.1123333",
 			},
 			expected: Temperature{
 				Yesterday: YesterdayTemperature{
@@ -396,7 +396,7 @@ func TestParse_Float64(t *testing.T) {
 		}, {
 			name: "no-yesterday-value",
 			vars: map[string]string{
-				"APP_VALUE": "21.7777",
+				"VALUE": "21.7777",
 			},
 			expected: Temperature{
 				Value:     21.7777,
@@ -442,8 +442,8 @@ func TestParse_StringSlice(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_TAGS":       "quick,brown,fox",
-				"APP_CHILD_TAGS": "hello,world",
+				"TAGS":       "quick,brown,fox",
+				"CHILD_TAGS": "hello,world",
 			},
 			expected: Config{
 				Tags: []string{"quick", "brown", "fox"},
@@ -454,7 +454,7 @@ func TestParse_StringSlice(t *testing.T) {
 		}, {
 			name: "no-tags",
 			vars: map[string]string{
-				"APP_CHILD_TAGS": "hello,world",
+				"CHILD_TAGS": "hello,world",
 			},
 			expected: Config{
 				Child: ChildConfig{
@@ -464,7 +464,7 @@ func TestParse_StringSlice(t *testing.T) {
 		}, {
 			name: "no-child-tags",
 			vars: map[string]string{
-				"APP_TAGS": "quick,brown,fox",
+				"TAGS": "quick,brown,fox",
 			},
 			expected: Config{
 				Tags:  []string{"quick", "brown", "fox"},
@@ -510,8 +510,8 @@ func TestParse_BoolSlice(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_SIGNALS":       "true,true,false,true",
-				"APP_CHILD_SIGNALS": "false,true,true,false",
+				"SIGNALS":       "true,true,false,true",
+				"CHILD_SIGNALS": "false,true,true,false",
 			},
 			expected: Config{
 				Signals: []bool{true, true, false, true},
@@ -522,7 +522,7 @@ func TestParse_BoolSlice(t *testing.T) {
 		}, {
 			name: "no-signals",
 			vars: map[string]string{
-				"APP_CHILD_SIGNALS": "false,true,true,false",
+				"CHILD_SIGNALS": "false,true,true,false",
 			},
 			expected: Config{
 				Child: ChildConfig{
@@ -532,7 +532,7 @@ func TestParse_BoolSlice(t *testing.T) {
 		}, {
 			name: "no-child-signals",
 			vars: map[string]string{
-				"APP_SIGNALS": "true,true,false,true",
+				"SIGNALS": "true,true,false,true",
 			},
 			expected: Config{
 				Signals: []bool{true, true, false, true},
@@ -579,9 +579,9 @@ func TestParse_UintSlice(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_PORTS":            "1234,1235,1236,1237",
-				"APP_CLICKHOUSE_PORTS": "8123,8124,8125",
-				"APP_POSTGRES_PORTS":   "5432,5433,5434,5435",
+				"PORTS":            "1234,1235,1236,1237",
+				"CLICKHOUSE_PORTS": "8123,8124,8125",
+				"POSTGRES_PORTS":   "5432,5433,5434,5435",
 			},
 			expected: Config{
 				Postgres: DatabaseConfig{
@@ -593,8 +593,8 @@ func TestParse_UintSlice(t *testing.T) {
 		}, {
 			name: "no-ports",
 			vars: map[string]string{
-				"APP_CLICKHOUSE_PORTS": "8123,8124,8125",
-				"APP_POSTGRES_PORTS":   "5432,5433,5434,5435",
+				"CLICKHOUSE_PORTS": "8123,8124,8125",
+				"POSTGRES_PORTS":   "5432,5433,5434,5435",
 			},
 			expected: Config{
 				Postgres: DatabaseConfig{
@@ -605,8 +605,8 @@ func TestParse_UintSlice(t *testing.T) {
 		}, {
 			name: "no-postgres-ports",
 			vars: map[string]string{
-				"APP_PORTS":            "1234,1235,1236,1237",
-				"APP_CLICKHOUSE_PORTS": "8123,8124,8125",
+				"PORTS":            "1234,1235,1236,1237",
+				"CLICKHOUSE_PORTS": "8123,8124,8125",
 			},
 			expected: Config{
 				Postgres:        DatabaseConfig{},
@@ -654,9 +654,9 @@ func TestParse_IntSlice(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_PORTS":            "-1234,-1235,-1236,-1237",
-				"APP_CLICKHOUSE_PORTS": "-8123,-8124,-8125",
-				"APP_POSTGRES_PORTS":   "-5432,-5433,-5434,-5435",
+				"PORTS":            "-1234,-1235,-1236,-1237",
+				"CLICKHOUSE_PORTS": "-8123,-8124,-8125",
+				"POSTGRES_PORTS":   "-5432,-5433,-5434,-5435",
 			},
 			expected: Config{
 				Postgres: DatabaseConfig{
@@ -668,8 +668,8 @@ func TestParse_IntSlice(t *testing.T) {
 		}, {
 			name: "no-ports",
 			vars: map[string]string{
-				"APP_CLICKHOUSE_PORTS": "-8123,-8124,-8125",
-				"APP_POSTGRES_PORTS":   "-5432,-5433,-5434,-5435",
+				"CLICKHOUSE_PORTS": "-8123,-8124,-8125",
+				"POSTGRES_PORTS":   "-5432,-5433,-5434,-5435",
 			},
 			expected: Config{
 				Postgres: DatabaseConfig{
@@ -680,8 +680,8 @@ func TestParse_IntSlice(t *testing.T) {
 		}, {
 			name: "no-postgres-ports",
 			vars: map[string]string{
-				"APP_PORTS":            "-1234,-1235,-1236,-1237",
-				"APP_CLICKHOUSE_PORTS": "-8123,-8124,-8125",
+				"PORTS":            "-1234,-1235,-1236,-1237",
+				"CLICKHOUSE_PORTS": "-8123,-8124,-8125",
 			},
 			expected: Config{
 				Postgres:        DatabaseConfig{},
@@ -728,8 +728,8 @@ func TestParse_Float64Slice(t *testing.T) {
 		{
 			name: "complete",
 			vars: map[string]string{
-				"APP_VALUES":       "21.7733,-2299.122311,-1.0000019",
-				"APP_CHILD_VALUES": "222.2233129999900001,-19.229939",
+				"VALUES":       "21.7733,-2299.122311,-1.0000019",
+				"CHILD_VALUES": "222.2233129999900001,-19.229939",
 			},
 			expected: Config{
 				Values: []float64{21.7733, -2299.122311, -1.0000019},
@@ -740,7 +740,7 @@ func TestParse_Float64Slice(t *testing.T) {
 		}, {
 			name: "no-values",
 			vars: map[string]string{
-				"APP_CHILD_VALUES": "222.2233129999900001,-19.229939",
+				"CHILD_VALUES": "222.2233129999900001,-19.229939",
 			},
 			expected: Config{
 				Child: ChildConfig{
@@ -750,7 +750,7 @@ func TestParse_Float64Slice(t *testing.T) {
 		}, {
 			name: "complete",
 			vars: map[string]string{
-				"APP_VALUES": "21.7733,-2299.122311,-1.0000019",
+				"VALUES": "21.7733,-2299.122311,-1.0000019",
 			},
 			expected: Config{
 				Values: []float64{21.7733, -2299.122311, -1.0000019},

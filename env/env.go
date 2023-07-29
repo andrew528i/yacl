@@ -10,7 +10,7 @@ import (
 	"github.com/andrew528i/yacl/utils"
 )
 
-const DefaultPrefix = "APP"
+const DefaultPrefix = ""
 const DefaultDelimiter = "_"
 
 type Params struct {
@@ -44,7 +44,10 @@ func Parse[T any](params *Params) (*T, error) {
 			name = strings.Join(fieldPathCopy, params.Delimiter)
 		}
 
-		name = fmt.Sprintf("%s%s%s", params.Prefix, params.Delimiter, name)
+		if params.Prefix != "" {
+			name = fmt.Sprintf("%s%s%s", params.Prefix, params.Delimiter, name)
+		}
+
 		name = strings.ToUpper(name)
 		envVal := os.Getenv(name)
 
