@@ -66,7 +66,8 @@ func TestParse_String(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			person := Parse[Person](DefaultFlagParams())
+			person, err := Parse[Person](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *person)
 		})
@@ -127,7 +128,8 @@ func TestParse_Bool(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			parent := Parse[Parent](DefaultFlagParams())
+			parent, err := Parse[Parent](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *parent)
 		})
@@ -223,7 +225,8 @@ func TestParse_Uint(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			person := Parse[Person](DefaultFlagParams())
+			person, err := Parse[Person](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *person)
 		})
@@ -319,7 +322,8 @@ func TestParse_Int(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			person := Parse[Person](DefaultFlagParams())
+			person, err := Parse[Person](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *person)
 		})
@@ -384,7 +388,8 @@ func TestParse_Float64(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			temperature := Parse[Temperature](DefaultFlagParams())
+			temperature, err := Parse[Temperature](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *temperature)
 		})

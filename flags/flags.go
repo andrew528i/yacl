@@ -9,31 +9,31 @@ import (
 	"github.com/andrew528i/yacl/utils"
 )
 
-type FlagParams struct {
+type Params struct {
 	Delimiter           string
 	FieldPathFormatFunc func([]string)
 }
 
-func DefaultFlagParams() *FlagParams {
+func DefaultParams() *Params {
 	delimiter := "-"
 
-	return &FlagParams{
+	return &Params{
 		Delimiter: delimiter,
 		FieldPathFormatFunc: func(fieldPath []string) {
 			for i := 0; i < len(fieldPath); i++ {
-				fieldName := strings.Join(camelCaseToSlice(fieldPath[i]), delimiter)
+				fieldName := strings.Join(utils.CamelCaseToSlice(fieldPath[i]), delimiter)
 				fieldPath[i] = strings.ToLower(fieldName)
 			}
 		},
 	}
 }
 
-func Parse[T any](params *FlagParams) *T {
+func Parse[T any](params *Params) (*T, error) {
 	var cfg T
 
 	flag.CommandLine = flag.NewFlagSet("", flag.ExitOnError)
 
-	utils.WalkStruct[T](&cfg, func(fieldPath []string, value reflect.Value, tag *reflect.StructTag) {
+	err := utils.WalkStruct[T](&cfg, func(fieldPath []string, value reflect.Value, tag *reflect.StructTag) error {
 		var flagName string
 		fieldPathCopy := make([]string, len(fieldPath))
 		copy(fieldPathCopy, fieldPath)
@@ -90,9 +90,14 @@ func Parse[T any](params *FlagParams) *T {
 		default:
 			panic(fmt.Sprintf("type not supported: `%s`", value.Type().Name()))
 		}
+
+		return nil
 	})
+	if err != nil {
+		return nil, err
+	}
 
 	flag.Parse()
 
-	return &cfg
+	return &cfg, nil
 }

@@ -69,7 +69,8 @@ func TestParse_BoolSlice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			myStruct := Parse[MyStruct](DefaultFlagParams())
+			myStruct, err := Parse[MyStruct](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *myStruct)
 		})

@@ -68,7 +68,8 @@ func TestParse_Float64Slice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			temperature := Parse[Temperature](DefaultFlagParams())
+			temperature, err := Parse[Temperature](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *temperature)
 		})

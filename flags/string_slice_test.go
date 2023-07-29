@@ -76,7 +76,8 @@ func TestParse_StringSlice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			blogPost := Parse[BlogPost](DefaultFlagParams())
+			blogPost, err := Parse[BlogPost](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *blogPost)
 		})

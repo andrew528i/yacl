@@ -37,16 +37,19 @@ func TestWalkStruct(t *testing.T) {
 	var meetTag bool
 
 	// Define the callback function to store the field paths and values
-	callback := func(fieldPath []string, field reflect.Value, fieldTag *reflect.StructTag) {
+	callback := func(fieldPath []string, field reflect.Value, fieldTag *reflect.StructTag) error {
 		fieldPaths = append(fieldPaths, strings.Join(fieldPath, "."))
 		fieldValues = append(fieldValues, field)
 		if fieldTag.Get("yacl") == "testing" {
 			meetTag = true
 		}
+
+		return nil
 	}
 
 	// Call the WalkStruct function with the person struct and the callback function
-	WalkStruct(&person, callback)
+	err := WalkStruct(&person, callback)
+	assert.NoError(t, err)
 
 	assert.True(t, meetTag)
 
@@ -58,6 +61,7 @@ func TestWalkStruct(t *testing.T) {
 		"Address.City",
 		"Address.Country",
 	}
+
 	expectedFieldValues := []reflect.Value{
 		reflect.ValueOf("John Doe"),
 		reflect.ValueOf(30),

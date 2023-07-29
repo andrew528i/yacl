@@ -75,7 +75,8 @@ func TestParse_UintSlice(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			os.Args = tc.args
 
-			ports := Parse[Ports](DefaultFlagParams())
+			ports, err := Parse[Ports](DefaultParams())
+			assert.NoError(t, err)
 
 			assert.Equal(t, tc.expected, *ports)
 		})

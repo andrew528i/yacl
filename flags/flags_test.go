@@ -20,13 +20,13 @@ func TestParse_UnsupportedTypes(t *testing.T) {
 		{
 			name: "float32",
 			exec: func() {
-				_ = Parse[FirstStruct](DefaultFlagParams())
+				_, _ = Parse[FirstStruct](DefaultParams())
 			},
 		},
 		{
 			name: "float32-slice",
 			exec: func() {
-				_ = Parse[SecondStruct](DefaultFlagParams())
+				_, _ = Parse[SecondStruct](DefaultParams())
 			},
 		},
 	}
