@@ -6,6 +6,8 @@ import (
 
 const DefaultFilename = "config"
 
+var DefaultPath = ""
+
 type Params struct {
 	Paths    []string
 	Filename string
@@ -21,6 +23,10 @@ func DefaultParams(extraPaths ...string) *Params {
 
 	paths = append(paths, cwd)
 	paths = append(paths, extraPaths...)
+
+	if DefaultPath != "" {
+		paths = append(paths, DefaultPath)
+	}
 
 	return &Params{
 		Paths:    paths,
