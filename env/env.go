@@ -10,8 +10,8 @@ import (
 	"github.com/andrew528i/yacl/utils"
 )
 
-const DefaultPrefix = ""
-const DefaultDelimiter = "_"
+var DefaultPrefix = ""
+var DefaultDelimiter = "_"
 
 type Params struct {
 	Prefix    string

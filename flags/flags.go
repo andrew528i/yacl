@@ -9,22 +9,23 @@ import (
 	"github.com/andrew528i/yacl/utils"
 )
 
+var DefaultDelimiter = "-"
+var DefaultFieldPathFormatFunc = func(fieldPath []string) {
+	for i := 0; i < len(fieldPath); i++ {
+		fieldName := strings.Join(utils.CamelCaseToSlice(fieldPath[i]), DefaultDelimiter)
+		fieldPath[i] = strings.ToLower(fieldName)
+	}
+}
+
 type Params struct {
 	Delimiter           string
 	FieldPathFormatFunc func([]string)
 }
 
 func DefaultParams() *Params {
-	delimiter := "-"
-
 	return &Params{
-		Delimiter: delimiter,
-		FieldPathFormatFunc: func(fieldPath []string) {
-			for i := 0; i < len(fieldPath); i++ {
-				fieldName := strings.Join(utils.CamelCaseToSlice(fieldPath[i]), delimiter)
-				fieldPath[i] = strings.ToLower(fieldName)
-			}
-		},
+		Delimiter:           DefaultDelimiter,
+		FieldPathFormatFunc: DefaultFieldPathFormatFunc,
 	}
 }
 

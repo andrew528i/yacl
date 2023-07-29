@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/andrew528i/yacl/file"
 	"github.com/stretchr/testify/assert"
 	"github.com/vmihailenco/msgpack/v5"
 	"gopkg.in/yaml.v3"
@@ -176,7 +175,7 @@ func TestParse(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			tempDir := t.TempDir()
-			file.DefaultPath = tempDir
+			SetFilePath(tempDir)
 
 			// Set args
 			if tc.args != nil {
@@ -213,7 +212,7 @@ func TestParse(t *testing.T) {
 			}
 
 			os.Clearenv()
-			file.DefaultPath = ""
+			SetFilePath("")
 		})
 	}
 }

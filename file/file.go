@@ -4,8 +4,7 @@ import (
 	"os"
 )
 
-const DefaultFilename = "config"
-
+var DefaultFilename = "config"
 var DefaultPath = ""
 
 type Params struct {
