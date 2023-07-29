@@ -30,10 +30,7 @@ func DefaultParams() *Params {
 
 func Parse[T any](params *Params) (*T, error) {
 	var cfg T
-
-	flag.CommandLine = flag.NewFlagSet("", flag.ExitOnError)
-
-	err := utils.WalkStruct[T](&cfg, func(fieldPath []string, value reflect.Value, tag *reflect.StructTag) error {
+	callback := func(fieldPath []string, value reflect.Value, tag *reflect.StructTag) error {
 		var flagName string
 		fieldPathCopy := make([]string, len(fieldPath))
 		copy(fieldPathCopy, fieldPath)
@@ -92,7 +89,11 @@ func Parse[T any](params *Params) (*T, error) {
 		}
 
 		return nil
-	})
+	}
+
+	flag.CommandLine = flag.NewFlagSet("", flag.ExitOnError)
+
+	err := utils.WalkStruct[T](&cfg, callback)
 	if err != nil {
 		return nil, err
 	}

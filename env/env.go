@@ -28,8 +28,7 @@ func DefaultParams() *Params {
 func Parse[T any](params *Params) (*T, error) {
 	var cfg T
 	names := make([]string, 0)
-
-	err := utils.WalkStruct(&cfg, func(fieldPath []string, value reflect.Value, tag *reflect.StructTag) error {
+	callback := func(fieldPath []string, value reflect.Value, tag *reflect.StructTag) error {
 		var name string
 
 		fieldPathCopy := make([]string, 0, len(fieldPath))
@@ -173,9 +172,9 @@ func Parse[T any](params *Params) (*T, error) {
 		names = append(names, name)
 
 		return nil
-	})
+	}
 
-	if err != nil {
+	if err := utils.WalkStruct(&cfg, callback); err != nil {
 		return nil, err
 	}
 
