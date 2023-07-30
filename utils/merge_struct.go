@@ -10,10 +10,21 @@ func MergeStruct(dst, src interface{}) {
 		dstField := dstValue.Field(i)
 		srcField := srcValue.Field(i)
 
-		if srcField.Interface() != reflect.Zero(srcField.Type()).Interface() {
-			if dstField.Kind() == reflect.Struct && srcField.Kind() == reflect.Struct {
-				MergeStruct(dstField.Addr().Interface(), srcField.Addr().Interface())
-			} else {
+		if srcField.Kind() != dstField.Kind() {
+			continue
+		}
+
+		switch srcField.Kind() {
+		case reflect.Slice:
+			if !srcField.IsNil() {
+				dstField.Set(srcField)
+			}
+
+		case reflect.Struct:
+			MergeStruct(dstField.Addr().Interface(), srcField.Addr().Interface())
+
+		default:
+			if srcField.Interface() != reflect.Zero(srcField.Type()).Interface() {
 				dstField.Set(srcField)
 			}
 		}

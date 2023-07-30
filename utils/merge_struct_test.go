@@ -16,6 +16,7 @@ func TestMergeStruct(t *testing.T) {
 		Name    string
 		Age     int
 		Address Address
+		Tags    []string
 	}
 
 	tests := []struct {
@@ -27,16 +28,16 @@ func TestMergeStruct(t *testing.T) {
 	}{
 		{
 			name:         "no-change",
-			target:       Person{Name: "John", Age: 30, Address: Address{Street: "123 Main St"}},
+			target:       Person{Name: "John", Age: 30, Tags: []string{"hello", "world"}, Address: Address{Street: "123 Main St"}},
 			source:       Person{Name: "", Age: 0, Address: Address{Street: ""}},
-			expected:     Person{Name: "John", Age: 30, Address: Address{Street: "123 Main St"}},
+			expected:     Person{Name: "John", Age: 30, Tags: []string{"hello", "world"}, Address: Address{Street: "123 Main St"}},
 			expectChange: false,
 		},
 		{
 			name:         "no-age",
 			target:       Person{Name: "John", Age: 30, Address: Address{Street: "123 Main St"}},
-			source:       Person{Name: "Doe", Age: 0, Address: Address{Street: "456 Second St"}},
-			expected:     Person{Name: "Doe", Age: 30, Address: Address{Street: "456 Second St"}},
+			source:       Person{Name: "Doe", Age: 0, Tags: []string{"hello", "world"}, Address: Address{Street: "456 Second St"}},
+			expected:     Person{Name: "Doe", Age: 30, Tags: []string{"hello", "world"}, Address: Address{Street: "456 Second St"}},
 			expectChange: true,
 		},
 		{
